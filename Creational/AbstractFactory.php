@@ -6,6 +6,7 @@
  * Date: 26.06.2017
  * Time: 16:46
  */
+namespace Creational\AbstractFactory;
 
 $patternTitle = 'Абстрактная фабрика';
 

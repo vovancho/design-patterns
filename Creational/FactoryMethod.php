@@ -5,7 +5,9 @@
  * Date: 26.06.2017
  * Time: 19:17
  */
-namespace FactoryMethod;
+namespace Creational\FactoryMethod;
+
+$patternTitle = 'Фабричный метод';
 
 abstract class FactoryMethod
 {
@@ -78,6 +80,8 @@ class ZakluchenieKardiologa implements IZakluchenie
         . "Вы посетили врача-кардиолога '{$this->vrach}'" . PHP_EOL;
     }
 }
+
+echo $patternTitle . PHP_EOL;
 
 $obsledovanieNevrolog = new NevrologFactory();
 $zakluchenieNevrolog = $obsledovanieNevrolog->create('Петров Петр Петрович', 'Иванов Иван Иванович');

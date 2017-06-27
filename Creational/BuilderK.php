@@ -5,8 +5,7 @@
  * Date: 26.06.2017
  * Time: 15:19
  */
-
-namespace Builder;
+namespace Creational\BuilderK;
 
 $patternTitle = 'Строитель';
 
@@ -24,12 +23,19 @@ interface IMedObsledovanieBuilder
 
 class Obsledovanie
 {
-    public function build(IMedObsledovanieBuilder $builder)
+    private $builder;
+
+    public function __construct(IMedObsledovanieBuilder $builder)
     {
         $builder->setPatient();
         $builder->setVrach();
 
-        return $builder->getZakluchenie();
+        $this->builder = $builder;
+    }
+
+    public function result()
+    {
+        return $this->builder->getZakluchenie()->result();
     }
 }
 
@@ -118,10 +124,8 @@ class Kardiolog implements IMedObsledovanieBuilder
 
 echo $patternTitle . PHP_EOL;
 
-$obsledovanie1 = new Obsledovanie();
-$zaklucheniePatient1 = $obsledovanie1->build(new Nevrolog());
+$zaklucheniePatient1 = new Obsledovanie(new Nevrolog());
 echo $zaklucheniePatient1->result();
 
-$obsledovanie2 = new Obsledovanie();
-$zaklucheniePatient2 = $obsledovanie2->build(new Kardiolog());
+$zaklucheniePatient2 = new Obsledovanie(new Kardiolog());
 echo $zaklucheniePatient2->result();
