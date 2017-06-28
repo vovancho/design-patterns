@@ -37,7 +37,7 @@ class AmbKartaMediator implements IAmbKartaMediator // Конкретный по
     }
 }
 
-abstract class Colleague // Общий класс коллег посредника
+abstract class BaseColleague // Общий класс коллег посредника
 {
     /** @var IAmbKartaMediator */
     protected $mediator;
@@ -48,7 +48,7 @@ abstract class Colleague // Общий класс коллег посредни�
     }
 }
 
-class AmbKarta extends Colleague // Коллега/Компонент
+class AmbKarta extends BaseColleague // Коллега/Компонент
 {
     private $num;
 
@@ -68,7 +68,7 @@ class AmbKarta extends Colleague // Коллега/Компонент
     }
 }
 
-class Patient extends Colleague // Коллега/Компонент
+class Patient extends BaseColleague // Коллега/Компонент
 {
     private $patientFIO;
 
@@ -83,7 +83,7 @@ class Patient extends Colleague // Коллега/Компонент
     }
 }
 
-class Doctor extends Colleague // Коллега/Компонент
+class Doctor extends BaseColleague // Коллега/Компонент
 {
     private $doctorFIO;
 
