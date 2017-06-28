@@ -26,7 +26,7 @@ class AmbKarta implements IOutput // Один из конкретных комп
 
     public function render()
     {
-        return "Пациент: {$this->fio}" . "<BR>";
+        return "Пациент: {$this->fio}" . PHP_EOL;
     }
 }
 
@@ -53,7 +53,7 @@ class DoctorDecorator extends OutputParentDecorator // Конкретные Де
     public function render()
     {
         return $this->wrapped->render()
-        . "Посетил врача: {$this->doctor}" . "<BR>";
+        . "Посетил врача: {$this->doctor}" . PHP_EOL;
     }
 }
 
@@ -72,7 +72,7 @@ class LabDecorator extends OutputParentDecorator // Конкретные Дек�
         $analyzes = implode(", ", $this->analyzes);
 
         return $this->wrapped->render()
-        . "Результат анализов: {$analyzes}" . "<BR>";
+        . "Результат анализов: {$analyzes}" . PHP_EOL;
     }
 }
 
@@ -91,13 +91,13 @@ class FlurDecorator extends OutputParentDecorator // Конкретные Дек
         $flur = $this->flur ? "Флюрография пройдена" : "Флюрография не пройдена";
 
         return $this->wrapped->render()
-        . "Результат флюрографии: {$flur}" . "<BR>";
+        . "Результат флюрографии: {$flur}" . PHP_EOL;
     }
 }
 
-echo $patternTitle . "<BR>";
+echo $patternTitle . PHP_EOL;
 
-echo "-----Амбулаторная карта-----" . "<BR>";
+echo "-----Амбулаторная карта-----" . PHP_EOL;
 
 $ambKarta = new AmbKarta('Иванов Иван Иванович'); // Родитель всех Декораторов
 
@@ -108,4 +108,4 @@ $ambKarta = new DoctorDecorator($ambKarta, 'Петров Петр Петрови
 
 echo $ambKarta->render();
 
-echo "----------------------------" . "<BR>";
+echo "----------------------------" . PHP_EOL;
