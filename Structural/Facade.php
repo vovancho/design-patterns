@@ -5,6 +5,7 @@
  * Date: 27.06.2017
  * Time: 14:00
  */
+
 namespace Structural\Facade;
 
 $patternTitle = 'Фасад';
@@ -98,8 +99,8 @@ class AmbKartaFacade
     public function getData()
     {
         return "Тип карты: {$this->karta->getType()}" . PHP_EOL
-        . "Пациент: {$this->patient->getFio()}" . PHP_EOL
-        . "Пол: {$this->patient->getSex()}" . PHP_EOL;
+            . "Пациент: {$this->patient->getFio()}" . PHP_EOL
+            . "Пол: {$this->patient->getSex()}" . PHP_EOL;
     }
 }
 
@@ -108,3 +109,11 @@ echo $patternTitle . PHP_EOL;
 $ambKarta = new AmbKartaFacade(new Patient(), new Karta());
 $ambKarta->fillKarta();
 echo $ambKarta->getData();
+
+/**
+ * php Structural/Facade.php
+ * Фасад
+ * Тип карты: Амбулаторная
+ * Пациент: Иванов Иван Иванович
+ * Пол: Мужчина
+ */

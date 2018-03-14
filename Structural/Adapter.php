@@ -5,6 +5,7 @@
  * Date: 27.06.2017
  * Time: 8:26
  */
+
 namespace Structural\Adapter;
 
 $patternTitle = 'Адаптер';
@@ -110,3 +111,11 @@ $ambKartaToStacionarKarta = new AmbKartaAdapter($ambKarta);
 echo "Стационарная карта пациента из амбулаторной карты:" . PHP_EOL;
 echo $ambKartaToStacionarKarta->getPatient()->getFIO() . PHP_EOL;
 
+/**
+ * php Structural/Adapter.php
+ * Адаптер
+ * Стационарная карта пациента:
+ * Иванов Иван Иванович
+ * Стационарная карта пациента из амбулаторной карты:
+ * Петров Петр Петрович
+ */

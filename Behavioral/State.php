@@ -114,3 +114,13 @@ $patient2->setState(new PatientEnteredHealthy());
 echo '1. Состояние пациента 2: ' . $patient2->getStatus() . PHP_EOL;
 $patient2->done();
 echo '2. Состояние пациента 2: ' . $patient2->getStatus() . PHP_EOL;
+
+/**
+ * php Behavioral/State.php
+ * Состояние
+ * 1. Состояние пациента 1: Поступил
+ * 2. Состояние пациента 1: Лечится
+ * 3. Состояние пациента 1: Выздоровел
+ * 1. Состояние пациента 2: Поступил
+ * 2. Состояние пациента 2: Здоров
+ */

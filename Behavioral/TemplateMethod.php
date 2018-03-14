@@ -5,6 +5,7 @@
  * Date: 27.06.2017
  * Time: 19:29
  */
+
 namespace Behavioral\TemplateMethod;
 
 $patternTitle = 'шаблонный метод';
@@ -33,7 +34,7 @@ abstract class BaseObsledovanie
     public function getComplaints()
     {
         return "У пациента {$this->patientFIO} умеются жалобы: " . PHP_EOL
-        . implode(PHP_EOL, $this->complaints) . PHP_EOL;
+            . implode(PHP_EOL, $this->complaints) . PHP_EOL;
     }
 }
 
@@ -54,3 +55,11 @@ echo $patternTitle . PHP_EOL;
 
 $patient = new Patient('Иванов Иван Иванович');
 $patient->perform();
+
+/**
+ * php Behavioral/TemplateMethod.php
+ * шаблонный метод
+ * У пациента Иванов Иван Иванович умеются жалобы:
+ * Болит голова
+ * Болит сердце
+ */

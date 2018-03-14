@@ -5,6 +5,7 @@
  * Date: 26.06.2017
  * Time: 15:19
  */
+
 namespace Creational\BuilderK;
 
 $patternTitle = 'Строитель';
@@ -52,7 +53,7 @@ class ZakluchenieNevrologa implements IZakluchenie
     public function result()
     {
         return "Пациент: {$this->patient} " . PHP_EOL
-        . " Вы посетили врача-невролога '{$this->vrach}'" . PHP_EOL;
+            . " Вы посетили врача-невролога '{$this->vrach}'" . PHP_EOL;
     }
 }
 
@@ -64,7 +65,7 @@ class ZakluchenieKardiologa implements IZakluchenie
     public function result()
     {
         return "Пациент: {$this->patient} " . PHP_EOL
-        . " Вы посетили врача-кардиолога '{$this->vrach}'" . PHP_EOL;
+            . " Вы посетили врача-кардиолога '{$this->vrach}'" . PHP_EOL;
     }
 }
 
@@ -129,3 +130,12 @@ echo $zaklucheniePatient1->result();
 
 $zaklucheniePatient2 = new Obsledovanie(new Kardiolog());
 echo $zaklucheniePatient2->result();
+
+/**
+ * php Creational/BuilderK.php
+ * Строитель
+ * Пациент: Петров Петр Петрович
+ * Вы посетили врача-невролога 'Иванов Иван Иванович'
+ * Пациент: Бобров Сергей Иванович
+ * Вы посетили врача-кардиолога 'Сидоров Петр Петрович'
+ */

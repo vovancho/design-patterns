@@ -5,6 +5,7 @@
  * Date: 28.06.2017
  * Time: 16:08
  */
+
 namespace Behavioral\Command;
 
 $patternTitle = 'Команда';
@@ -82,3 +83,10 @@ $doctorGiveAmbKartaCommand = new TakeAmbKarta($patient);
 $doctor = new Doctor();
 $doctor->execute($doctorTakeAmbKartaCommand);
 $doctor->execute($doctorGiveAmbKartaCommand);
+
+/**
+ * php Behavioral/Command.php
+ * Команда
+ * Пациент 'Иванов Иван Иванович' передает амбулаторную карту врачу.
+ * Пациент 'Иванов Иван Иванович' забирает амбулаторную карту у врача.
+ */

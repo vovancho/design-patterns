@@ -5,6 +5,7 @@
  * Date: 26.06.2017
  * Time: 19:17
  */
+
 namespace Creational\FactoryMethod;
 
 $patternTitle = 'Фабричный метод';
@@ -59,7 +60,7 @@ class ZakluchenieNevrologa implements IZakluchenie
     public function result()
     {
         return "Пациент: {$this->patient} " . PHP_EOL
-        . "Вы посетили врача-невролога '{$this->vrach}'" . PHP_EOL;
+            . "Вы посетили врача-невролога '{$this->vrach}'" . PHP_EOL;
     }
 }
 
@@ -77,7 +78,7 @@ class ZakluchenieKardiologa implements IZakluchenie
     public function result()
     {
         return "Пациент: {$this->patient} " . PHP_EOL
-        . "Вы посетили врача-кардиолога '{$this->vrach}'" . PHP_EOL;
+            . "Вы посетили врача-кардиолога '{$this->vrach}'" . PHP_EOL;
     }
 }
 
@@ -90,3 +91,12 @@ echo $zakluchenieNevrolog->result();
 $obsledovanieKardiolog = new KardiologFactory();
 $zakluchenieKardiolog = $obsledovanieKardiolog->create('Бобров Сергей Иванович', 'Сидоров Петр Петрович');
 echo $zakluchenieKardiolog->result();
+
+/**
+ * php Creational/FactoryMethod.php
+ * Фабричный метод
+ * Пациент: Петров Петр Петрович
+ * Вы посетили врача-невролога 'Иванов Иван Иванович'
+ * Пациент: Бобров Сергей Иванович
+ * Вы посетили врача-кардиолога 'Сидоров Петр Петрович'
+ */

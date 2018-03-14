@@ -5,6 +5,7 @@
  * Date: 28.06.2017
  * Time: 16:40
  */
+
 namespace Behavioral\Momento;
 
 $patternTitle = 'Хранитель/Снимок';
@@ -60,3 +61,10 @@ $day2_AmbKarta->restore($registratura); // Восстанавливаем сос
 $day2_AmbKarta->record('День 2: Пациент посетил врача кардиолога');
 
 echo $day2_AmbKarta->getContent();
+
+/**
+ * php Behavioral/Momento.php
+ * Хранитель/Снимок
+ * День 1: Пациент посетил врача невролога
+ * День 2: Пациент посетил врача кардиолога
+ */

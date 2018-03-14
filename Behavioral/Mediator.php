@@ -5,6 +5,7 @@
  * Date: 28.06.2017
  * Time: 17:24
  */
+
 namespace Behavioral\Mediator;
 
 $patternTitle = 'Посредник';
@@ -33,7 +34,7 @@ class AmbKartaMediator implements IAmbKartaMediator // Конкретный по
     public function currentRecord() // С другого конца, посредник должен вызывать методы нужного компонента, когда получает оповещение
     {
         return "Выписка из амбулаторной карты №{$this->ambKarta->getNum()}:" . PHP_EOL
-        . "Пациент '{$this->patient->fio()}' посетил врача '{$this->doctor->fio()}'";
+            . "Пациент '{$this->patient->fio()}' посетил врача '{$this->doctor->fio()}'";
     }
 }
 
@@ -107,3 +108,10 @@ $ambKarta = new AmbKarta(1); // Коллега/Компонент
 new AmbKartaMediator($patient, $doctor, $ambKarta); // Посредник между компонентами Patient, Doctor, AmbKarta
 
 $ambKarta->getRecord(); // метод оповещения посредника
+
+/**
+ * php Behavioral/Mediator.php
+ * Посредник
+ * Выписка из амбулаторной карты №1:
+ * Пациент 'Иванов Иван Иванович' посетил врача 'Ефимов Ефим Ефимович'
+ */

@@ -6,6 +6,7 @@
  * Date: 26.06.2017
  * Time: 16:46
  */
+
 namespace Creational\AbstractFactory;
 
 $patternTitle = 'Абстрактная фабрика';
@@ -121,3 +122,12 @@ $patient2 = $factoryKardiolog->createPatient('Бобров Сергей Иван
 $zakluchenie2 = $factoryKardiolog->createZakluchenie('Сидоров Петр Петрович');
 echo $patient2->fio();
 echo $zakluchenie2->result();
+
+/**
+ * php Creational/AbstractFactory.php
+ * Абстрактная фабрика
+ * Пациент неврлога: Петров Петр Петрович
+ * Вы посетили врача-невролога 'Иванов Иван Иванович'
+ * Пациент кардиолога: Бобров Сергей Иванович
+ * Вы посетили врача-кардиолога 'Сидоров Петр Петрович'
+ */

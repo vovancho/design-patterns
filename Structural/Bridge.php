@@ -5,6 +5,7 @@
  * Date: 27.06.2017
  * Time: 9:50
  */
+
 namespace Structural\Bridge;
 
 $patternTitle = 'Мост';
@@ -64,3 +65,10 @@ echo "Амбулаторная карта пациента: $fam $im $ot" . PHP_
 
 list($fio) = $patientStacionar->fio('Петров', 'Петр', 'Петрович');
 echo "Стационарная карта пациента: $fio" . PHP_EOL;
+
+/**
+ * php Structural/Bridge.php
+ * Мост
+ * Амбулаторная карта пациента: Иванов Иван Иванович
+ * Стационарная карта пациента: Петров Петр Петрович
+ */
