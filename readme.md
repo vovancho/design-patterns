@@ -1,9 +1,31 @@
 # Design-Patterns
 *(Шаблоны проектирования)*
 
-- Поведенческие *[(Behavioral)](https://github.com/vovancho/design-patterns/tree/master/Behavioral)*
-- Порождающие *[(Creational)](https://github.com/vovancho/design-patterns/tree/master/Creational)*
-- [Структурные](#Структурные-structural)
+- [Поведенческие (Behavioral)](#Поведенческие-behavioral)
+  - [Цепочка обязанностей (Chain Of Responsibilities)](#Цепочка-обязанностей)
+  - [Команда (Command)](#Команда)
+  - [Итератор (Iterator)](#Итератор)
+  - [Посредник (Mediator)](#Посредник)
+  - [Хранитель/Снимок (Momento)](#ХранительСнимок)
+  - [Наблюдатель (Observer)](#Наблюдатель)
+  - [Состояние (State)](#Состояние)
+  - [Стратегия (Strategy)](#Стратегия)
+  - [Шаблонный метод (TemplateMethod)](#Шаблонный-метод)
+  - [Посетитель (Visitor)](#Посетитель)
+- [Порождающие (Creational)](#Порождающие-creational)
+  - [Абстрактная фабрика (AbstractFactory)](#Абстрактная-фабрика)
+  - [Строитель (Builder)](#Строитель)
+  - [Фабричный метод (FactoryMethod)](#Фабричный-метод)
+  - [Прототип (Prototype)](#Прототип)
+  - [Синглтон (Singleton)](#Синглтон)
+- [Структурные (Structural)](#Структурные-structural)
+  - [Адаптер (Adapter)](#Адаптер)
+  - [Мост (Bridge)](#Мост)
+  - [Компоновщик (Composite)](#Компоновщик)
+  - [Декоратор (Decorator)](#Декоратор)
+  - [Фасад (Facade)](#Фасад)
+  - [Приспособленец/Легковес (FlyWeight)](#ПриспособленецЛегковес)
+  - [Заместитель (Proxy)](#Заместитель)
 
 ## Поведенческие *[(Behavioral)](https://github.com/vovancho/design-patterns/tree/master/Behavioral)*
 
