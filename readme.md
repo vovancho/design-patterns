@@ -1,5 +1,5 @@
 # Design-Patterns
-*(Шаблоны проектирования)*
+<p align="center">**Шаблоны проектирования**</p>
 
 - [Поведенческие (Behavioral)](#Поведенческие-behavioral)
   - [Цепочка обязанностей (Chain Of Responsibilities)](#Цепочка-обязанностей)
