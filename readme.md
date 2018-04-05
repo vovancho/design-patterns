@@ -1,10 +1,10 @@
-## Design-Patterns
+# Design-Patterns
 *(Шаблоны проектирования)*
 
-### Поведенческие
+## Поведенческие
 *[Behavioral](https://github.com/vovancho/design-patterns/tree/master/Behavioral)*
 
-#### Цепочка обязанностей
+### Цепочка обязанностей
 *[Chain Of Responsibilities](https://github.com/vovancho/design-patterns/blob/master/Behavioral/ChainOfResponsibilities.php)*
 
 ![Chain Of Responsibilities](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_ChainOfResponsibilities.png)
@@ -27,7 +27,7 @@ $nevrolog->cure('Плохо вижу');
  */
 ```
 
-#### Команда
+### Команда
 *[Command](https://github.com/vovancho/design-patterns/blob/master/Behavioral/Command.php)*
 
 ![Command](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Command.png)
