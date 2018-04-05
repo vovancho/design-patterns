@@ -1,8 +1,7 @@
 # Design-Patterns
 *(Шаблоны проектирования)*
 
-## Поведенческие
-*[Behavioral](https://github.com/vovancho/design-patterns/tree/master/Behavioral)*
+## Поведенческие *[Behavioral](https://github.com/vovancho/design-patterns/tree/master/Behavioral)*
 
 ### Цепочка обязанностей
 *[Chain Of Responsibilities](https://github.com/vovancho/design-patterns/blob/master/Behavioral/ChainOfResponsibilities.php)*
