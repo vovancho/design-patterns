@@ -8,7 +8,7 @@
 
 namespace Behavioral\TemplateMethod;
 
-$patternTitle = 'шаблонный метод';
+$patternTitle = 'Шаблонный метод';
 
 abstract class BaseObsledovanie
 {
