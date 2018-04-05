@@ -1,6 +1,10 @@
 # Design-Patterns
 *(Шаблоны проектирования)*
 
+- Поведенческие *[(Behavioral)](https://github.com/vovancho/design-patterns/tree/master/Behavioral)*
+- Порождающие *[(Creational)](https://github.com/vovancho/design-patterns/tree/master/Creational)*
+- [Структурные](## Структурные)
+
 ## Поведенческие *[(Behavioral)](https://github.com/vovancho/design-patterns/tree/master/Behavioral)*
 
 ### Цепочка обязанностей
@@ -261,5 +265,337 @@ $kardiolog->accept($patientComplaints);
  * Болит голова
  * Я врач кардиолог, пациент жалуется, что у него:
  * Болит сердце
+ */
+```
+
+## Порождающие *[(Creational)](https://github.com/vovancho/design-patterns/tree/master/Creational)*
+
+### Абстрактная фабрика
+*[AbstractFactory](https://github.com/vovancho/design-patterns/blob/master/Creational/AbstractFactory.php)*
+
+![AbstractFactory](https://github.com/vovancho/design-patterns/blob/master/diagrams/C_AbstractFactory.png)
+
+```php
+$factoryNevrolog = new NevrologFactory();
+$patient1 = $factoryNevrolog->createPatient('Петров Петр Петрович');
+$zakluchenie1 = $factoryNevrolog->createZakluchenie('Иванов Иван Иванович');
+echo $patient1->fio();
+echo $zakluchenie1->result();
+
+$factoryKardiolog = new KardiologFactory();
+$patient2 = $factoryKardiolog->createPatient('Бобров Сергей Иванович');
+$zakluchenie2 = $factoryKardiolog->createZakluchenie('Сидоров Петр Петрович');
+echo $patient2->fio();
+echo $zakluchenie2->result();
+
+/**
+ * php Creational/AbstractFactory.php
+ * Абстрактная фабрика
+ * Пациент неврлога: Петров Петр Петрович
+ * Вы посетили врача-невролога 'Иванов Иван Иванович'
+ * Пациент кардиолога: Бобров Сергей Иванович
+ * Вы посетили врача-кардиолога 'Сидоров Петр Петрович'
+ */
+```
+
+### Строитель
+*[Builder](https://github.com/vovancho/design-patterns/blob/master/Creational/Builder.php)*
+
+![Builder](https://github.com/vovancho/design-patterns/blob/master/diagrams/C_Builder.png)
+
+```php
+$obsledovanie1 = new Obsledovanie();
+$zaklucheniePatient1 = $obsledovanie1->build(new Nevrolog());
+echo $zaklucheniePatient1->result();
+
+$obsledovanie2 = new Obsledovanie();
+$zaklucheniePatient2 = $obsledovanie2->build(new Kardiolog());
+echo $zaklucheniePatient2->result();
+
+/**
+ * php Creational/Builder.php
+ * Строитель
+ * Пациент: Петров Петр Петрович
+ * Вы посетили врача-невролога 'Иванов Иван Иванович'
+ * Пациент: Бобров Сергей Иванович
+ * Вы посетили врача-кардиолога 'Сидоров Петр Петрович'
+ */
+```
+
+### Фабричный метод
+*[FactoryMethod](https://github.com/vovancho/design-patterns/blob/master/Creational/FactoryMethod.php)*
+
+![FactoryMethod](https://github.com/vovancho/design-patterns/blob/master/diagrams/C_FactoryMethod.png)
+
+```php
+$obsledovanieNevrolog = new NevrologFactory();
+$zakluchenieNevrolog = $obsledovanieNevrolog->create('Петров Петр Петрович', 'Иванов Иван Иванович');
+echo $zakluchenieNevrolog->result();
+
+$obsledovanieKardiolog = new KardiologFactory();
+$zakluchenieKardiolog = $obsledovanieKardiolog->create('Бобров Сергей Иванович', 'Сидоров Петр Петрович');
+echo $zakluchenieKardiolog->result();
+
+/**
+ * php Creational/FactoryMethod.php
+ * Фабричный метод
+ * Пациент: Петров Петр Петрович
+ * Вы посетили врача-невролога 'Иванов Иван Иванович'
+ * Пациент: Бобров Сергей Иванович
+ * Вы посетили врача-кардиолога 'Сидоров Петр Петрович'
+ */
+```
+
+### Прототип
+*[Prototype](https://github.com/vovancho/design-patterns/blob/master/Creational/Prototype.php)*
+
+![Prototype](https://github.com/vovancho/design-patterns/blob/master/diagrams/C_Prototype.png)
+
+```php
+$ambKartaFactory = new AmbKartaFactory(
+    $defaultPatient = new DefaultPatient,
+    $defaultVrach = new DefaultVrach
+);
+
+$prototypePatient = $ambKartaFactory->getPatientPrototype();
+$prototypePatient->setName('Иванов Иван Иванович');
+$prototypeVrach = $ambKartaFactory->getVrachPrototype();
+$prototypeVrach->setName('Петров Петр Петрович');
+
+echo $defaultPatient->getDescription();
+echo $defaultVrach->getDescription();
+echo '-----------------' . PHP_EOL;
+echo $prototypePatient->getDescription();
+echo $prototypeVrach->getDescription();
+
+/**
+ * php Creational/Prototype.php
+ * Прототип
+ * Пациент: не задано
+ * Врач: не задано
+ * -----------------
+ * Пациент: Иванов Иван Иванович
+ * Врач: Петров Петр Петрович
+ */
+```
+
+### Синглтон
+*[Singleton](https://github.com/vovancho/design-patterns/blob/master/Creational/Singleton.php)*
+
+![Singleton](https://github.com/vovancho/design-patterns/blob/master/diagrams/C_Singleton.png)
+
+```php
+echo Poliklinika::getInstance()->name();
+
+/**
+ * php Creational/Singleton.php
+ * Синглтон
+ * Поликлиника №1
+ */
+```
+
+## Структурные *[(Structural)](https://github.com/vovancho/design-patterns/tree/master/Structural)*
+
+### Адаптер
+*[Adapter](https://github.com/vovancho/design-patterns/blob/master/Structural/Adapter.php)*
+
+![Adapter](https://github.com/vovancho/design-patterns/blob/master/diagrams/S_Adapter.png)
+
+```php
+$stacionarKarta = new StacionarKarta('Иванов Иван Иванович');
+echo "Стационарная карта пациента:" . PHP_EOL;
+echo $stacionarKarta->getPatient()->getFIO() . PHP_EOL;
+
+$ambKarta = new AmbKarta('Петров', 'Петр', 'Петрович');
+$ambKartaToStacionarKarta = new AmbKartaAdapter($ambKarta);
+echo "Стационарная карта пациента из амбулаторной карты:" . PHP_EOL;
+echo $ambKartaToStacionarKarta->getPatient()->getFIO() . PHP_EOL;
+
+/**
+ * php Structural/Adapter.php
+ * Адаптер
+ * Стационарная карта пациента:
+ * Иванов Иван Иванович
+ * Стационарная карта пациента из амбулаторной карты:
+ * Петров Петр Петрович
+ */
+```
+
+### Мост
+*[Bridge](https://github.com/vovancho/design-patterns/blob/master/Structural/Bridge.php)*
+
+![Bridge](https://github.com/vovancho/design-patterns/blob/master/diagrams/S_Bridge.png)
+
+```php
+$outputAmbKarta = new AmbKartaOutput();
+$outputStacionar = new StacionarKartaOutput();
+
+$patientAmbKarta = new Patient($outputAmbKarta);
+$patientStacionar = new Patient($outputStacionar);
+
+list($fam, $im, $ot) = $patientAmbKarta->fio('Иванов', 'Иван', 'Иванович');
+echo "Амбулаторная карта пациента: $fam $im $ot" . PHP_EOL;
+
+list($fio) = $patientStacionar->fio('Петров', 'Петр', 'Петрович');
+echo "Стационарная карта пациента: $fio" . PHP_EOL;
+
+/**
+ * php Structural/Bridge.php
+ * Мост
+ * Амбулаторная карта пациента: Иванов Иван Иванович
+ * Стационарная карта пациента: Петров Петр Петрович
+ */
+```
+
+### Компоновщик
+*[Composite](https://github.com/vovancho/design-patterns/blob/master/Structural/Composite.php)*
+
+![Composite](https://github.com/vovancho/design-patterns/blob/master/diagrams/S_Composite.png)
+
+```php
+$patientAmbKarta1 = new AmbKarta('Иванов Иван Иванович');
+$patientAmbKarta1->addOsmotr(new Doctor('Сидоров Николай Николаевич'));
+$patientAmbKarta1->addOsmotr(new Doctor('Гоголь Мария Ивановна'));
+
+$patientAmbKarta2 = new AmbKarta('Петров Петр Петрович');
+$patientAmbKarta2->addOsmotr(new Doctor('Фоменко Николай Сергеевич'));
+
+$report = new Report();
+$report->addKarta($patientAmbKarta1);
+$report->addKarta($patientAmbKarta2);
+$report->render();
+
+/**
+ * php Structural/Composite.php
+ * Компоновщик
+ * Отчет на дату: 14.03.2018
+ *
+ * ---Амбулаторная карта---
+ * Пациента осмотрел врач: Сидоров Николай Николаевич
+ * Пациента осмотрел врач: Гоголь Мария Ивановна
+ * ------------------------
+ *
+ * ---Амбулаторная карта---
+ * Пациента осмотрел врач: Фоменко Николай Сергеевич
+ * ------------------------
+ */
+```
+
+### Декоратор
+*[Decorator](https://github.com/vovancho/design-patterns/blob/master/Structural/Decorator.php)*
+
+![Decorator](https://github.com/vovancho/design-patterns/blob/master/diagrams/S_Decorator.png)
+
+```php
+echo "-----Амбулаторная карта-----" . PHP_EOL;
+
+$ambKarta = new AmbKarta('Иванов Иван Иванович'); // Родитель всех Декораторов
+
+$ambKarta = new DoctorDecorator($ambKarta, 'Сидоров Сергей Петрович'); // Декоратор
+$ambKarta = new LabDecorator($ambKarta, ['Глюкоза: 12', 'Креатинин: 5', 'Белок: 7']); // Декоратор
+$ambKarta = new FlurDecorator($ambKarta, true); // Декоратор
+$ambKarta = new DoctorDecorator($ambKarta, 'Петров Петр Петрович'); // Декоратор
+
+echo $ambKarta->render();
+
+echo "----------------------------" . PHP_EOL;
+
+/**
+ * php Structural/Decorator.php
+ * Декоратор
+ * -----Амбулаторная карта-----
+ * Пациент: Иванов Иван Иванович
+ * Посетил врача: Сидоров Сергей Петрович
+ * Результат анализов: Глюкоза: 12, Креатинин: 5, Белок: 7
+ * Результат флюрографии: Флюрография пройдена
+ * Посетил врача: Петров Петр Петрович
+ * ----------------------------
+ */
+```
+
+### Фасад
+*[Facade](https://github.com/vovancho/design-patterns/blob/master/Structural/Facade.php)*
+
+![Facade](https://github.com/vovancho/design-patterns/blob/master/diagrams/S_Facade.png)
+
+```php
+$ambKarta = new AmbKartaFacade(new Patient(), new Karta());
+$ambKarta->fillKarta();
+echo $ambKarta->getData();
+
+/**
+ * php Structural/Facade.php
+ * Фасад
+ * Тип карты: Амбулаторная
+ * Пациент: Иванов Иван Иванович
+ * Пол: Мужчина
+ */
+```
+
+### Приспособленец/Легковес
+*[FlyWeight](https://github.com/vovancho/design-patterns/blob/master/Structural/FlyWeight.php)*
+
+![FlyWeight](https://github.com/vovancho/design-patterns/blob/master/diagrams/S_FlyWeight.png)
+
+```php
+$patientsFactory = new Patients();
+
+$patients = [
+    'Иванов Иван Иванович',
+    'Петров Петр Петрович',
+    'Иванов Иван Иванович',
+    'Сидоров Николай Ефимович',
+];
+
+foreach ($patients as $patientFIO) { // Пациенты кэшируются (т.к. имеют внутреннее состояние)
+    foreach ([IPatient::AMB, IPatient::STACIONAR] as $typeKart) { // Здесь передается внешее состояние
+        $patientFromFlyweight = $patientsFactory->get($patientFIO);
+        echo $patientFromFlyweight->getData($typeKart);
+    }
+}
+
+/**
+ * php Structural/FlyWeight.php
+ * Приспособленец/Легковес
+ * Тип карты: Амбулаторная
+ * Пациент: Иванов Иван Иванович
+ * Тип карты: Стационарная
+ * Пациент: Иванов Иван Иванович
+ * Тип карты: Амбулаторная
+ * Пациент: Петров Петр Петрович
+ * Тип карты: Стационарная
+ * Пациент: Петров Петр Петрович
+ * Тип карты: Амбулаторная
+ * Пациент: Иванов Иван Иванович
+ * Тип карты: Стационарная
+ * Пациент: Иванов Иван Иванович
+ * Тип карты: Амбулаторная
+ * Пациент: Сидоров Николай Ефимович
+ * Тип карты: Стационарная
+ * Пациент: Сидоров Николай Ефимович
+ */
+```
+
+### Заместитель
+*[Proxy](https://github.com/vovancho/design-patterns/blob/master/Structural/Proxy.php)*
+
+![Proxy](https://github.com/vovancho/design-patterns/blob/master/diagrams/S_Proxy.png)
+
+```php
+$obsledovaniePriemProxy = new ObsledovaniePriemProxy();
+
+$obsledovaniePriemProxy->setPatient('Сидоров Иван Иванович', 'Петров Петр Петрович'); // Первичный
+$obsledovaniePriemProxy->setPatient('Сидоров Иван Иванович', 'Петров Петр Петрович'); // Вторичный
+$obsledovaniePriemProxy->setPatient('Сидоров Сергей Ефимович', 'Иванов Иван Иванович'); // Первичный
+
+/**
+ * php Structural/Proxy.php
+ * Заместитель
+ * Пациент 'Петров Петр Петрович' пришел на прием к врачу 'Сидоров Иван Иванович'
+ * Тип приема: Первичный.
+ * Пациент 'Петров Петр Петрович' пришел на прием к врачу 'Сидоров Иван Иванович'
+ * Тип приема: Вторичный.
+ * Пациент 'Иванов Иван Иванович' пришел на прием к врачу 'Сидоров Сергей Ефимович'
+ * Тип приема: Первичный.
  */
 ```
