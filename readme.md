@@ -3,7 +3,7 @@
 
 - Поведенческие *[(Behavioral)](https://github.com/vovancho/design-patterns/tree/master/Behavioral)*
 - Порождающие *[(Creational)](https://github.com/vovancho/design-patterns/tree/master/Creational)*
-- [Структурные](#Test)
+- [Структурные](#Структурные-structural)
 
 ## Поведенческие *[(Behavioral)](https://github.com/vovancho/design-patterns/tree/master/Behavioral)*
 
@@ -393,8 +393,6 @@ echo Poliklinika::getInstance()->name();
  * Поликлиника №1
  */
 ```
-
-# Test
 
 ## Структурные *[(Structural)](https://github.com/vovancho/design-patterns/tree/master/Structural)*
 
