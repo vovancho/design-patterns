@@ -1,4 +1,4 @@
-# Design-Patterns
+# <p align="center">Design-Patterns</p>
 **<p align="center">Шаблоны проектирования</p>**
 
 - [Поведенческие (Behavioral)](#Поведенческие-behavioral)
