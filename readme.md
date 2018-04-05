@@ -27,6 +27,8 @@
   - [Приспособленец/Легковес (FlyWeight)](#ПриспособленецЛегковес)
   - [Заместитель (Proxy)](#Заместитель)
 
+---
+
 ## Поведенческие *[(Behavioral)](https://github.com/vovancho/design-patterns/tree/master/Behavioral)*
 
 ### Цепочка обязанностей
