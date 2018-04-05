@@ -52,7 +52,7 @@ $doctor->execute($doctorGiveAmbKartaCommand);
 ### Итератор
 *[Iterator](https://github.com/vovancho/design-patterns/blob/master/Behavioral/Iterator.php)*
 
-![Iterator](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Iterator.php)
+![Iterator](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Iterator.png)
 
 ```php
 $vrach1 = new Vrach('Невролог', 'Иванов Иван Иванович');
@@ -87,7 +87,7 @@ echo 'Количество сотрулников после исключени�
 ### Посредник
 *[Mediator](https://github.com/vovancho/design-patterns/blob/master/Behavioral/Mediator.php)*
 
-![Mediator](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Mediator.php)
+![Mediator](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Mediator.png)
 
 ```php
 $patient = new Patient('Иванов Иван Иванович'); // Коллега/Компонент
@@ -109,7 +109,7 @@ $ambKarta->getRecord(); // метод оповещения посредника
 ### Хранитель/Снимок
 *[Momento](https://github.com/vovancho/design-patterns/blob/master/Behavioral/Momento.php)*
 
-![Momento](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Momento.php)
+![Momento](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Momento.png)
 
 ```php
 $day1_AmbKarta = new AmbKarta();
@@ -133,7 +133,7 @@ echo $day2_AmbKarta->getContent();
 ### Наблюдатель
 *[Observer](https://github.com/vovancho/design-patterns/blob/master/Behavioral/Observer.php)*
 
-![Observer](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Observer.php)
+![Observer](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Observer.png)
 
 ```php
 $patientObserver1 = new PatientObserver('Иванов Иван Иванович');
@@ -164,7 +164,7 @@ $smsObservableSubject->notify();
 ### Состояние
 *[State](https://github.com/vovancho/design-patterns/blob/master/Behavioral/State.php)*
 
-![State](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_State.php)
+![State](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_State.png)
 
 ```php
 $patient1 = new Patient();
@@ -195,7 +195,7 @@ echo '2. Состояние пациента 2: ' . $patient2->getStatus() . PHP
 ### Стратегия
 *[Strategy](https://github.com/vovancho/design-patterns/blob/master/Behavioral/Strategy.php)*
 
-![Strategy](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Strategy.php)
+![Strategy](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Strategy.png)
 
 ```php
 $outputAmbKarta = new AmbKartaStrategy();
@@ -223,7 +223,7 @@ echo "Стационарная карта пациента: $fio" . PHP_EOL;
 ### Шаблонный метод
 *[TemplateMethod](https://github.com/vovancho/design-patterns/blob/master/Behavioral/TemplateMethod.php)*
 
-![TemplateMethod](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_TemplateMethod.php)
+![TemplateMethod](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_TemplateMethod.png)
 
 ```php
 $patient = new Patient('Иванов Иван Иванович');
@@ -241,7 +241,7 @@ $patient->perform();
 ### Посетитель
 *[Visitor](https://github.com/vovancho/design-patterns/blob/master/Behavioral/Visitor.php)*
 
-![Visitor](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Visitor.php)
+![Visitor](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Visitor.png)
 
 ```php
 $nevrolog = new Nevrolog();
