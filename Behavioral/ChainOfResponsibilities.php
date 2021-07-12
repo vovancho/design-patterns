@@ -10,11 +10,11 @@ namespace Behavioral\ChainOfResponsibilities;
 
 $patternTitle = 'Цепочка обязанностей';
 
-interface IComplaints
+interface ComplaintInterface
 {
     const HURTS_HEAD = 'Болит голова';
     const HURTS_SPINE = 'Болит спина';
-    const HURTS_SHAKING = 'Тресет тело';
+    const HURTS_SHAKING = 'Трясет тело';
     const HURTS_HEART = 'Болит сердце';
     const HURTS_SOSUDI = 'Сужены сосуды';
     const HURTS_EYES = 'Плохо вижу';
@@ -22,22 +22,22 @@ interface IComplaints
 
 abstract class BaseDoctor
 {
-    /** @var BaseDoctor */
-    protected $successor;
-    protected $complaints = [];
-    protected $special;
+    protected ?BaseDoctor $successor = null;
+    /** @var string[] */
+    protected array $complaints = [];
+    protected ?string $special = null;
 
-    public function getSpecial()
+    public function getSpecial(): ?string
     {
         return $this->special;
     }
 
-    public function goNextDoctor(BaseDoctor $doctor)
+    public function goNextDoctor(BaseDoctor $doctor): void
     {
         $this->successor = $doctor;
     }
 
-    public function cure($complaint) //Лечить
+    public function cure(string $complaint): void //Лечить
     {
         if ($this->canCure($complaint)) {
             echo "Я врач {$this->special}, я вылечу, если у Вас '$complaint'." . PHP_EOL;
@@ -49,7 +49,7 @@ abstract class BaseDoctor
         }
     }
 
-    public function canCure($complaint) //Могу вылечить?
+    public function canCure(string $complaint): bool //Могу вылечить?
     {
         return in_array($complaint, $this->complaints);
     }
@@ -57,24 +57,24 @@ abstract class BaseDoctor
 
 class Nevrolog extends BaseDoctor
 {
-    protected $special = 'Невролог';
-    protected $complaints = [
-        IComplaints::HURTS_HEAD,
-        IComplaints::HURTS_SPINE,
-        IComplaints::HURTS_SHAKING,
+    protected ?string $special = 'Невролог';
+    protected array $complaints = [
+        ComplaintInterface::HURTS_HEAD,
+        ComplaintInterface::HURTS_SPINE,
+        ComplaintInterface::HURTS_SHAKING,
     ];
 }
 
 class Kardiolog extends BaseDoctor
 {
-    protected $special = 'Кардиолог';
-    protected $complaints = [
-        IComplaints::HURTS_HEART,
-        IComplaints::HURTS_SOSUDI,
+    protected ?string $special = 'Кардиолог';
+    protected array $complaints = [
+        ComplaintInterface::HURTS_HEART,
+        ComplaintInterface::HURTS_SOSUDI,
     ];
 }
 
-echo $patternTitle . PHP_EOL;
+echo $patternTitle . PHP_EOL . PHP_EOL;
 
 $nevrolog = new Nevrolog();
 $kardiolog = new Kardiolog();
@@ -82,15 +82,21 @@ $kardiolog = new Kardiolog();
 $nevrolog->goNextDoctor($kardiolog);
 
 $nevrolog->cure('Болит голова');
+echo '---' . PHP_EOL;
 $nevrolog->cure('Болит сердце');
+echo '---' . PHP_EOL;
 $nevrolog->cure('Плохо вижу');
 
 /**
  * php Behavioral/ChainOfResponsibilities.php
+ *
  * Цепочка обязанностей
+ *
  * Я врач Невролог, я вылечу, если у Вас 'Болит голова'.
+ * ---
  * Я врач Невролог, я не могу Вас вылечить, если у Вас 'Болит сердце'. Я направлю Вас к врачу по специальности 'Кардиолог'.
  * Я врач Кардиолог, я вылечу, если у Вас 'Болит сердце'.
+ * ---
  * Я врач Невролог, я не могу Вас вылечить, если у Вас 'Плохо вижу'. Я направлю Вас к врачу по специальности 'Кардиолог'.
  * Я врач Кардиолог, ничем не можем Вам помочь.
  */

@@ -12,54 +12,56 @@ $patternTitle = 'Команда';
 
 class Patient // Receiver (Исполнитель)
 {
-    private $fio;
+    private string $fio;
 
-    public function __construct($fio)
+    public function __construct(string $fio)
     {
         $this->fio = $fio;
     }
 
-    public function giveAmbKarta()
+    public function giveAmbKarta(string $doctorName): void
     {
-        echo "Пациент '{$this->fio}' передает амбулаторную карту врачу." . PHP_EOL;
+        echo "Пациент '{$this->fio}' передает амбулаторную карту врачу '{$doctorName}'." . PHP_EOL;
     }
 
-    public function takeAmbKarta()
+    public function takeAmbKarta(): void
     {
         echo "Пациент '{$this->fio}' забирает амбулаторную карту у врача." . PHP_EOL;
     }
 }
 
-interface IAmbKartaCommand // Интерфейс всех команд
+interface AmbKartaCommandInterface // Интерфейс всех команд
 {
-    public function executeOperation();
+    public function executeOperation(): void;
 }
 
-class GiveAmbKarta implements IAmbKartaCommand // Конкретная команда.
+class GiveAmbKarta implements AmbKartaCommandInterface // Конкретная команда.
 {
-    private $patient;
+    private Patient $patient;
+    private string $doctorName;
+
+    public function __construct(Patient $patient, string $doctorName)
+    {
+        $this->patient = $patient;
+        $this->doctorName = $doctorName;
+    }
+
+    public function executeOperation(): void
+    {
+        $this->patient->giveAmbKarta($this->doctorName);
+    }
+}
+
+class TakeAmbKarta implements AmbKartaCommandInterface // Конкретная команда.
+{
+    private Patient $patient;
 
     public function __construct(Patient $patient)
     {
         $this->patient = $patient;
     }
 
-    public function executeOperation()
-    {
-        $this->patient->giveAmbKarta();
-    }
-}
-
-class TakeAmbKarta implements IAmbKartaCommand // Конкретная команда.
-{
-    private $patient;
-
-    public function __construct(Patient $patient)
-    {
-        $this->patient = $patient;
-    }
-
-    public function executeOperation()
+    public function executeOperation(): void
     {
         $this->patient->takeAmbKarta();
     }
@@ -67,26 +69,25 @@ class TakeAmbKarta implements IAmbKartaCommand // Конкретная кома�
 
 class Doctor //  Invoker (Командир)
 {
-    public function execute(IAmbKartaCommand $ambKartaCommand)
+    public function execute(AmbKartaCommandInterface $ambKartaCommand): void
     {
         $ambKartaCommand->executeOperation();
     }
 }
 
-echo $patternTitle . PHP_EOL;
+echo $patternTitle . PHP_EOL . PHP_EOL;
 
 $patient = new Patient('Иванов Иван Иванович');
 
-$doctorTakeAmbKartaCommand = new GiveAmbKarta($patient);
-$doctorGiveAmbKartaCommand = new TakeAmbKarta($patient);
-
 $doctor = new Doctor();
-$doctor->execute($doctorTakeAmbKartaCommand);
-$doctor->execute($doctorGiveAmbKartaCommand);
+$doctor->execute(new GiveAmbKarta($patient, 'Сидоров Сергей Петрович'));
+$doctor->execute(new TakeAmbKarta($patient));
 
 /**
  * php Behavioral/Command.php
+ *
  * Команда
- * Пациент 'Иванов Иван Иванович' передает амбулаторную карту врачу.
+ *
+ * Пациент 'Иванов Иван Иванович' передает амбулаторную карту врачу 'Сидоров Сергей Петрович'.
  * Пациент 'Иванов Иван Иванович' забирает амбулаторную карту у врача.
  */
