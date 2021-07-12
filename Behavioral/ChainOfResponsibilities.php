@@ -12,12 +12,12 @@ $patternTitle = 'Цепочка обязанностей';
 
 interface ComplaintInterface
 {
-    const HURTS_HEAD = 'Болит голова';
-    const HURTS_SPINE = 'Болит спина';
-    const HURTS_SHAKING = 'Трясет тело';
-    const HURTS_HEART = 'Болит сердце';
-    const HURTS_SOSUDI = 'Сужены сосуды';
-    const HURTS_EYES = 'Плохо вижу';
+    public const HURTS_HEAD = 'Болит голова';
+    public const HURTS_SPINE = 'Болит спина';
+    public const HURTS_SHAKING = 'Трясет тело';
+    public const HURTS_HEART = 'Болит сердце';
+    public const HURTS_SOSUDI = 'Сужены сосуды';
+    public const HURTS_EYES = 'Плохо вижу';
 }
 
 abstract class BaseDoctor

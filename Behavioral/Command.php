@@ -12,11 +12,8 @@ $patternTitle = 'Команда';
 
 class Patient // Receiver (Исполнитель)
 {
-    private string $fio;
-
-    public function __construct(string $fio)
+    public function __construct(private string $fio)
     {
-        $this->fio = $fio;
     }
 
     public function giveAmbKarta(string $doctorName): void
@@ -37,13 +34,8 @@ interface AmbKartaCommandInterface // Интерфейс всех команд
 
 class GiveAmbKarta implements AmbKartaCommandInterface // Конкретная команда.
 {
-    private Patient $patient;
-    private string $doctorName;
-
-    public function __construct(Patient $patient, string $doctorName)
+    public function __construct(private Patient $patient, private string $doctorName)
     {
-        $this->patient = $patient;
-        $this->doctorName = $doctorName;
     }
 
     public function executeOperation(): void
@@ -54,11 +46,8 @@ class GiveAmbKarta implements AmbKartaCommandInterface // Конкретная �
 
 class TakeAmbKarta implements AmbKartaCommandInterface // Конкретная команда.
 {
-    private Patient $patient;
-
-    public function __construct(Patient $patient)
+    public function __construct(private Patient $patient)
     {
-        $this->patient = $patient;
     }
 
     public function executeOperation(): void
