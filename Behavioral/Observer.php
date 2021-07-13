@@ -14,28 +14,10 @@ use SplSubject;
 
 $patternTitle = 'Наблюдатель';
 
-class Sms
+class PatientObserver implements \SplObserver // Конкретные Наблюдатели реагируют на обновления, выпущенные Издателем, к которому они прикреплены
 {
-    private $text;
-
-    public function __construct($text)
+    public function __construct(private string $fio)
     {
-        $this->text = $text;
-    }
-
-    public function getText()
-    {
-        return $this->text;
-    }
-}
-
-class PatientObserver implements \SplObserver
-{
-    private $fio;
-
-    public function __construct($fio)
-    {
-        $this->fio = $fio;
     }
 
     public function update(SplSubject $subject)
@@ -45,64 +27,66 @@ class PatientObserver implements \SplObserver
     }
 }
 
-class SmsObservableSubject implements \SplSubject
+class SmsObservableSubject implements \SplSubject // Издатель владеет некоторым важным состоянием и оповещает наблюдателей о его изменениях
 {
-    private $observers;
-    private $sms;
+    private ?string $sms; // Для удобства в этой переменной хранится текст сообщения Издателя, необходимый всем подписчикам
 
-    public function __construct(Sms $sms)
+    private SplObjectStorage $observers; // Список подписчиков
+
+    public function __construct()
     {
         $this->observers = new SplObjectStorage();
-        $this->sms = $sms;
     }
 
-    public function attach(SplObserver $observer)
+    public function attach(SplObserver $observer): void
     {
         $this->observers->attach($observer);
     }
 
-    public function detach(SplObserver $observer)
+    public function detach(SplObserver $observer): void
     {
         $this->observers->detach($observer);
     }
 
-    public function notify()
+    public function notify(): void // Запуск обновления в каждом подписчике.
     {
         foreach ($this->observers as $observer) {
             $observer->update($this);
         }
     }
 
-    public function changeSms(Sms $sms)
-    {
+    public function sendSms(string $sms): void // Обычно логика подписки – только часть того, что делает Издатель.
+    {                                          // Издатели часто содержат некоторую важную бизнес-логику, которая запускает метод уведомления всякий раз, когда должно произойти что-то важное (или после этого)
         $this->sms = $sms;
+        $this->notify();
     }
 
-    public function getSmsText()
+    public function getSmsText(): string
     {
-        return $this->sms->getText();
+        return $this->sms;
     }
 }
 
-echo $patternTitle . PHP_EOL;
+echo $patternTitle . PHP_EOL . PHP_EOL;
 
 $patientObserver1 = new PatientObserver('Иванов Иван Иванович');
 $patientObserver2 = new PatientObserver('Петров Петр Петрович');
 
-$smsObservableSubject = new SmsObservableSubject(new Sms('В поликлинике день открытых дверей в эти выходные.'));
+$smsObservableSubject = new SmsObservableSubject();
 $smsObservableSubject->attach($patientObserver1);
 $smsObservableSubject->attach($patientObserver2);
 
-$smsObservableSubject->notify();
+$smsObservableSubject->sendSms('В поликлинике день открытых дверей в эти выходные.');
 
 echo '----------------' . PHP_EOL;
 
-$smsObservableSubject->changeSms(new Sms('Не забудьте пройти диспансеризацию в этом году.'));
-$smsObservableSubject->notify();
+$smsObservableSubject->sendSms('Не забудьте пройти диспансеризацию в этом году.');
 
 /**
  * php Behavioral/Observer.php
+ *
  * Наблюдатель
+ *
  * Пациент "Иванов Иван Иванович" получил sms сообщение с текстом "В поликлинике день открытых дверей в эти выходные."
  * Пациент "Петров Петр Петрович" получил sms сообщение с текстом "В поликлинике день открытых дверей в эти выходные."
  * ----------------

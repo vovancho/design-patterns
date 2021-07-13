@@ -10,117 +10,109 @@ namespace Behavioral\State;
 
 $patternTitle = 'Состояние';
 
-abstract class BasePatient
+class Patient // Контекст определяет интерфейс, представляющий интерес для клиентов. Он также хранит ссылку на экземпляр подкласса Состояния, который отображает текущее состояние Контекста
 {
-    const ENTERED = 'Поступил';
-    const TREATED = 'Лечится';
-    const RECOVERED = 'Выздоровел';
-    const HEALTHY = 'Здоров';
+    private PatientState $state; // Ссылка на текущее состояние Контекста
 
-    private $status;
-    /** @var BasePatient */
-    protected static $state;
-
-    abstract protected function done();
-
-    protected function setStatus($status)
+    public function __construct(PatientState $state)
     {
-        $this->status = $status;
+        $this->transitionTo($state);
     }
 
-    protected function getStatus()
+    public function transitionTo(PatientState $state): void // Контекст позволяет изменять объект Состояния во время выполнения
     {
-        return $this->status;
+        $this->state = $state;
+        $this->state->setContext($this);
+    }
+
+    public function toHeal(): void // Контекст делегирует часть своего поведения текущему объекту Состояния
+    {
+        $this->state->healing();
+    }
+
+    public function isRecovered(): bool // Контекст делегирует часть своего поведения текущему объекту Состояния
+    {
+        return $this->state->isRecovered();
     }
 }
 
-class Patient extends BasePatient
+abstract class PatientState // Базовый класс Состояния объявляет методы, которые должны реализовать все Конкретные Состояния, а также предоставляет обратную ссылку на объект Контекст, связанный с Состоянием
+{                           // Эта обратная ссылка может использоваться Состояниями для передачи Контекста другому Состоянию
+    protected ?Patient $patient = null;
+
+    public function setContext(Patient $patient): void
+    {
+        $this->patient = $patient;
+    }
+
+    abstract public function healing(): void;
+
+    abstract public function isRecovered(): bool;
+}
+
+class EnteredPatientState extends PatientState // Конкретные Состояния реализуют различные модели поведения, связанные с состоянием Контекста
 {
-
-    public function getState()
+    public function healing(): void
     {
-        return static::$state;
+        $this->patient->transitionTo(new TreatedPatientState());
     }
 
-    public function setState(BasePatient $state)
+    public function isRecovered(): bool
     {
-        static::$state = $state;
-    }
-
-
-    public function done()
-    {
-        static::$state->done();
-    }
-
-    public function getStatus()
-    {
-        return static::$state->getStatus();
+        return false;
     }
 }
 
-class PatientEnteredSick extends BasePatient
+class TreatedPatientState extends PatientState // Конкретные Состояния реализуют различные модели поведения, связанные с состоянием Контекста
 {
-    public function __construct()
+    public function healing(): void
     {
-        $this->setStatus(self::ENTERED);
+        $this->patient->transitionTo(new HealthyPatientState());
     }
 
-    protected function done()
+    public function isRecovered(): bool
     {
-        static::$state = new PatientTreated();
+        return false;
     }
 }
 
-class PatientEnteredHealthy extends BasePatient
+class HealthyPatientState extends PatientState // Конкретные Состояния реализуют различные модели поведения, связанные с состоянием Контекста
 {
-    public function __construct()
+    public function healing(): void
     {
-        $this->setStatus(self::ENTERED);
     }
 
-    protected function done()
+    public function isRecovered(): bool
     {
-        $this->setStatus(self::HEALTHY);
+        return true;
     }
 }
 
-class PatientTreated extends BasePatient
-{
+echo $patternTitle . PHP_EOL . PHP_EOL;
 
-    public function __construct()
-    {
-        $this->setStatus(self::TREATED);
-    }
+$patient1 = new Patient(new EnteredPatientState());
+echo 'Здоровье пациента 1: ' . ($patient1->isRecovered() ? 'Здоров' : 'Не здоров') . PHP_EOL;
+$patient1->toHeal();
+echo 'Здоровье пациента 1: ' . ($patient1->isRecovered() ? 'Здоров' : 'Не здоров') . PHP_EOL;
+$patient1->toHeal();
+echo 'Здоровье пациента 1: ' . ($patient1->isRecovered() ? 'Здоров' : 'Не здоров') . PHP_EOL;
 
-    protected function done()
-    {
-        $this->setStatus(self::RECOVERED);
-    }
-}
+echo PHP_EOL;
 
-echo $patternTitle . PHP_EOL;
-
-$patient1 = new Patient();
-$patient1->setState(new PatientEnteredSick());
-echo '1. Состояние пациента 1: ' . $patient1->getStatus() . PHP_EOL;
-$patient1->done();
-echo '2. Состояние пациента 1: ' . $patient1->getStatus() . PHP_EOL;
-$patient1->done();
-echo '3. Состояние пациента 1: ' . $patient1->getStatus() . PHP_EOL;
-
-$patient2 = new Patient();
-$patient2->setState(new PatientEnteredHealthy());
-echo '1. Состояние пациента 2: ' . $patient2->getStatus() . PHP_EOL;
-$patient2->done();
-echo '2. Состояние пациента 2: ' . $patient2->getStatus() . PHP_EOL;
+$patient2 = new Patient(new TreatedPatientState());
+echo 'Здоровье пациента 2: ' . ($patient2->isRecovered() ? 'Здоров' : 'Не здоров') . PHP_EOL;
+$patient2->toHeal();
+echo 'Здоровье пациента 2: ' . ($patient2->isRecovered() ? 'Здоров' : 'Не здоров') . PHP_EOL;
 
 /**
  * php Behavioral/State.php
+ *
  * Состояние
- * 1. Состояние пациента 1: Поступил
- * 2. Состояние пациента 1: Лечится
- * 3. Состояние пациента 1: Выздоровел
- * 1. Состояние пациента 2: Поступил
- * 2. Состояние пациента 2: Здоров
+ *
+ * Здоровье пациента 1: Не здоров
+ * Здоровье пациента 1: Не здоров
+ * Здоровье пациента 1: Здоров
+ *
+ * Здоровье пациента 2: Не здоров
+ * Здоровье пациента 2: Здоров
  */
