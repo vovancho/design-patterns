@@ -12,96 +12,89 @@ $patternTitle = 'Итератор';
 
 class Vrach
 {
-
-    private $dolzh;
-    private $fio;
-
-    public function __construct($dolzh, $fio)
+    public function __construct(private string $dolzh, private string $fio)
     {
-        $this->dolzh = $dolzh;
-        $this->fio = $fio;
     }
 
-    public function getDescription()
+    public function getDescription(): string
     {
-        return 'Врач: ' . $this->dolzh . ', ' . $this->fio . PHP_EOL;
+        return "Врач: $this->dolzh, $this->fio" . PHP_EOL;
     }
 }
 
-class Employees implements \Countable, \Iterator
+class SimpleIterator implements \Iterator
 {
-    private $employees = [];
-    private $currentIndex = 0;
+    private int $position = 0;
 
-    public function current()
+    public function __construct(private EmployeesCollection $collection)
     {
-        return $this->employees[$this->currentIndex];
     }
 
-    public function next()
+    public function rewind(): void
     {
-        $this->currentIndex++;
+        $this->position = 0;
     }
 
-    public function key()
+    public function current(): Vrach
     {
-        return $this->currentIndex;
+        return $this->collection->getEmployees()[$this->position];
     }
 
-    public function valid()
+    public function key(): int
     {
-        return isset($this->employees[$this->currentIndex]);
+        return $this->position;
     }
 
-    public function rewind()
+    public function next(): void
     {
-        $this->currentIndex = 0;
+        $this->position = $this->position + 1;
     }
 
-    public function count()
+    public function valid(): bool
     {
-        return count($this->employees);
+        return isset($this->collection->getEmployees()[$this->position]);
+    }
+}
+
+class EmployeesCollection implements \IteratorAggregate
+{
+    private array $employees = [];
+
+    public function getEmployees(): array
+    {
+        return $this->employees;
     }
 
-    public function addEmployee(Vrach $vrach)
+    public function addEmployee(Vrach $vrach): void
     {
         array_push($this->employees, $vrach);
     }
 
-    public function removeEmployee(Vrach $vrach)
+    // Фабричный метод используется, чтобы подклассы коллекций могли создавать подходящие им итераторы
+    public function getIterator(): \Iterator
     {
-        $this->employees = array_values(array_filter($this->employees, function (Vrach $vrachEmployee) use ($vrach) {
-            return $vrachEmployee->getDescription() !== $vrach->getDescription();
-        }));
+        return new SimpleIterator($this);
     }
 }
 
-echo $patternTitle . PHP_EOL;
+echo $patternTitle . PHP_EOL . PHP_EOL;
 
-$vrach1 = new Vrach('Невролог', 'Иванов Иван Иванович');
-$vrach2 = new Vrach('Кардиолог', 'Петров Петр Петрович');
-$vrach3 = new Vrach('Терапевт', 'Сидоров Сергей Сергеевич');
+$employees = new EmployeesCollection;
+$employees->addEmployee(new Vrach('Невролог', 'Иванов Иван Иванович'));
+$employees->addEmployee(new Vrach('Кардиолог', 'Петров Петр Петрович'));
+$employees->addEmployee(new Vrach('Терапевт', 'Сидоров Сергей Сергеевич'));
 
-$employees = new Employees;
-$employees->addEmployee($vrach1);
-$employees->addEmployee($vrach2);
-$employees->addEmployee($vrach3);
-
-echo 'Количество сотрулников: ' . count($employees) . PHP_EOL;
 /** @var Vrach $employee */
-foreach ($employees as $employee) {
+foreach ($employees->getIterator() as $employee) {
     echo $employee->getDescription();
 }
 
-$employees->removeEmployee($vrach2);
-echo 'Количество сотрулников после исключения 1-го врача: ' . count($employees) . PHP_EOL;
-
 /**
  * php Behavioral/Iterator.php
+ *
  * Итератор
- * Количество сотрулников: 3
+ *
  * Врач: Невролог, Иванов Иван Иванович
  * Врач: Кардиолог, Петров Петр Петрович
  * Врач: Терапевт, Сидоров Сергей Сергеевич
- * Количество сотрулников после исключения 1-го врача: 2
  */

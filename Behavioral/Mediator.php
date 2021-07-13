@@ -10,40 +10,35 @@ namespace Behavioral\Mediator;
 
 $patternTitle = 'Посредник';
 
-interface IAmbKartaMediator // Общий интерфейс посредников.
+interface AmbKartaMediatorInterface // Общий интерфейс посредников.
 {
-    public function currentRecord();
+    public function notify(object $sender, string $event): string;
 }
 
-class AmbKartaMediator implements IAmbKartaMediator // Конкретный посредник
+class AmbKartaMediator implements AmbKartaMediatorInterface // Конкретный посредник
 {
-    private $patient;
-    private $doctor;
-    private $ambKarta;
-
-    public function __construct(Patient $patient, Doctor $doctor, AmbKarta $ambKarta)
+    public function __construct(private Patient $patient, private Doctor $doctor, private AmbKarta $ambKarta)
     {
-        $this->patient = $patient;
-        $this->doctor = $doctor;
-        $this->ambKarta = $ambKarta;
         $this->patient->setMediator($this);
         $this->doctor->setMediator($this);
         $this->ambKarta->setMediator($this);
     }
 
-    public function currentRecord() // С другого конца, посредник должен вызывать методы нужного компонента, когда получает оповещение
+    public function notify(object $sender, string $event): string // С другого конца, посредник должен вызывать методы нужного компонента, когда получает оповещение
     {
-        return "Выписка из амбулаторной карты №{$this->ambKarta->getNum()}:" . PHP_EOL
-            . "Пациент '{$this->patient->fio()}' посетил врача '{$this->doctor->fio()}'";
+        return match (true) {
+            $sender instanceof AmbKarta && $event === 'AmbKarta::getRecord' => "Выписка из амбулаторной карты №{$this->ambKarta->getNum()}:\nПациент '{$this->patient->fio()}' посетил врача '{$this->doctor->fio()}'",
+            $sender instanceof Patient && $event === 'Patient::getState' => "Пациент посетил врача: {$this->doctor->fio()}",
+            $sender instanceof Doctor && $event === 'Doctor::getVisit' => "Врач принял пациента: {$this->patient->fio()}"
+        };
     }
 }
 
 abstract class BaseColleague // Общий класс коллег посредника
 {
-    /** @var IAmbKartaMediator */
-    protected $mediator;
+    protected ?AmbKartaMediatorInterface $mediator = null;
 
-    public function setMediator(IAmbKartaMediator $mediator)
+    public function setMediator(AmbKartaMediatorInterface $mediator)
     {
         $this->mediator = $mediator;
     }
@@ -51,55 +46,56 @@ abstract class BaseColleague // Общий класс коллег посред�
 
 class AmbKarta extends BaseColleague // Коллега/Компонент
 {
-    private $num;
-
-    public function __construct($num)
+    public function __construct(private int $num)
     {
-        $this->num = $num;
     }
 
-    public function getNum()
+    public function getNum(): int
     {
         return $this->num;
     }
 
-    public function getRecord() // метод оповещения посредника
+    public function getRecord(): string // метод оповещения посредника
     {
-        echo $this->mediator->currentRecord();
+        return $this->mediator->notify($this, 'AmbKarta::getRecord');
     }
 }
 
 class Patient extends BaseColleague // Коллега/Компонент
 {
-    private $patientFIO;
-
-    public function __construct($patientFIO)
+    public function __construct(private string $patientFIO)
     {
-        $this->patientFIO = $patientFIO;
     }
 
-    public function fio()
+    public function fio(): string
     {
         return $this->patientFIO;
+    }
+
+    public function getState(): string // метод оповещения посредника
+    {
+        return $this->mediator->notify($this, 'Patient::getState');
     }
 }
 
 class Doctor extends BaseColleague // Коллега/Компонент
 {
-    private $doctorFIO;
-
-    public function __construct($doctorFIO)
+    public function __construct(private string $doctorFIO)
     {
-        $this->doctorFIO = $doctorFIO;
     }
 
-    public function fio()
+    public function fio(): string
     {
         return $this->doctorFIO;
     }
+
+    public function getVisit(): string // метод оповещения посредника
+    {
+        return $this->mediator->notify($this, 'Doctor::getVisit');
+    }
 }
 
-echo $patternTitle . PHP_EOL;
+echo $patternTitle . PHP_EOL . PHP_EOL;
 
 $patient = new Patient('Иванов Иван Иванович'); // Коллега/Компонент
 $doctor = new Doctor('Ефимов Ефим Ефимович'); // Коллега/Компонент
@@ -107,11 +103,22 @@ $ambKarta = new AmbKarta(1); // Коллега/Компонент
 
 new AmbKartaMediator($patient, $doctor, $ambKarta); // Посредник между компонентами Patient, Doctor, AmbKarta
 
-$ambKarta->getRecord(); // метод оповещения посредника
+echo $patient->getState(); // метод оповещения посредника
+echo PHP_EOL . PHP_EOL;
+echo $doctor->getVisit(); // метод оповещения посредника
+echo PHP_EOL . PHP_EOL;
+echo $ambKarta->getRecord(); // метод оповещения посредника
 
 /**
  * php Behavioral/Mediator.php
+ *
  * Посредник
+ *
+ * Пациент посетил врача: Ефимов Ефим Ефимович
+ *
+ * Врач принял пациента: Иванов Иван Иванович
+ *
  * Выписка из амбулаторной карты №1:
  * Пациент 'Иванов Иван Иванович' посетил врача 'Ефимов Ефим Ефимович'
+ *
  */
