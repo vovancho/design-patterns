@@ -53,7 +53,7 @@ HTTP Request Middleware ([PSR-15](https://www.php-fig.org/psr/psr-15/))
 
 Обработчики в [Цепочке обязанностей](#Цепочка-обязанностей) могут выполнять произвольные действия, независимые друг от друга, а также в любой момент прерывать дальнейшую передачу по цепочке. С другой стороны [Декораторы](#Декоратор) расширяют какое-то определённое действие, не ломая интерфейс базовой операции и не прерывая выполнение остальных декораторов.
 
-![Chain Of Responsibilities](diagrams/B_ChainOfResponsibilities.png)
+![Chain Of Responsibilities](diagrams/B_ChainOfResponsibilities.svg)
 
 ```php
 $nevrolog = new Nevrolog();
