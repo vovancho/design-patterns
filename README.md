@@ -151,32 +151,24 @@ PHP имеет встроенный интерфейс для поддержки
 ![Iterator](diagrams/B_Iterator.png)
 
 ```php
-$vrach1 = new Vrach('Невролог', 'Иванов Иван Иванович');
-$vrach2 = new Vrach('Кардиолог', 'Петров Петр Петрович');
-$vrach3 = new Vrach('Терапевт', 'Сидоров Сергей Сергеевич');
+$employees = new EmployeesCollection;
+$employees->addEmployee(new Vrach('Невролог', 'Иванов Иван Иванович'));
+$employees->addEmployee(new Vrach('Кардиолог', 'Петров Петр Петрович'));
+$employees->addEmployee(new Vrach('Терапевт', 'Сидоров Сергей Сергеевич'));
 
-$employees = new Employees;
-$employees->addEmployee($vrach1);
-$employees->addEmployee($vrach2);
-$employees->addEmployee($vrach3);
-
-echo 'Количество сотрулников: ' . count($employees) . PHP_EOL;
 /** @var Vrach $employee */
-foreach ($employees as $employee) {
+foreach ($employees->getIterator() as $employee) {
     echo $employee->getDescription();
 }
 
-$employees->removeEmployee($vrach2);
-echo 'Количество сотрулников после исключения 1-го врача: ' . count($employees) . PHP_EOL;
-
 /**
  * php Behavioral/Iterator.php
+ *
  * Итератор
- * Количество сотрулников: 3
+ *
  * Врач: Невролог, Иванов Иван Иванович
  * Врач: Кардиолог, Петров Петр Петрович
  * Врач: Терапевт, Сидоров Сергей Сергеевич
- * Количество сотрулников после исключения 1-го врача: 2
  */
 ```
 
