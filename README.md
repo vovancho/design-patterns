@@ -33,7 +33,7 @@
 
 ### Цепочка обязанностей
 
-*[Chain Of Responsibilities](https://github.com/vovancho/design-patterns/blob/master/Behavioral/ChainOfResponsibilities.php)*
+*[Chain Of Responsibilities](Behavioral/ChainOfResponsibilities.php)*
 
 Позволяет передавать запрос по цепочке потенциальных обработчиков, пока один из них не обработает запрос.
 
@@ -53,7 +53,7 @@ HTTP Request Middleware ([PSR-15](https://www.php-fig.org/psr/psr-15/))
 
 Обработчики в [Цепочке обязанностей](#Цепочка-обязанностей) могут выполнять произвольные действия, независимые друг от друга, а также в любой момент прерывать дальнейшую передачу по цепочке. С другой стороны [Декораторы](#Декоратор) расширяют какое-то определённое действие, не ломая интерфейс базовой операции и не прерывая выполнение остальных декораторов.
 
-![Chain Of Responsibilities](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_ChainOfResponsibilities.png)
+![Chain Of Responsibilities](diagrams/B_ChainOfResponsibilities.png)
 
 ```php
 $nevrolog = new Nevrolog();
@@ -80,7 +80,7 @@ $nevrolog->cure('Плохо вижу');
 
 ### Команда
 
-*[Command](https://github.com/vovancho/design-patterns/blob/master/Behavioral/Command.php)*
+*[Command](Behavioral/Command.php)*
 
 Позволяет заворачивать запросы или простые операции в отдельные объекты.
 
@@ -103,7 +103,7 @@ $nevrolog->cure('Плохо вижу');
 
 [Посетитель](#Посетитель) можно рассматривать как расширенный аналог [Команды](#Команда), который способен работать сразу с несколькими видами получателей.
 
-![Command](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Command.png)
+![Command](diagrams/B_Command.png)
 
 ```php
 $patient = new Patient('Иванов Иван Иванович');
@@ -123,9 +123,9 @@ $doctor->execute(new TakeAmbKarta($patient));
 ```
 
 ### Итератор
-*[Iterator](https://github.com/vovancho/design-patterns/blob/master/Behavioral/Iterator.php)*
+*[Iterator](Behavioral/Iterator.php)*
 
-![Iterator](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Iterator.png)
+![Iterator](diagrams/B_Iterator.png)
 
 ```php
 $vrach1 = new Vrach('Невролог', 'Иванов Иван Иванович');
@@ -158,9 +158,9 @@ echo 'Количество сотрулников после исключени�
 ```
 
 ### Посредник
-*[Mediator](https://github.com/vovancho/design-patterns/blob/master/Behavioral/Mediator.php)*
+*[Mediator](Behavioral/Mediator.php)*
 
-![Mediator](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Mediator.png)
+![Mediator](diagrams/B_Mediator.png)
 
 ```php
 $patient = new Patient('Иванов Иван Иванович'); // Коллега/Компонент
@@ -180,9 +180,9 @@ $ambKarta->getRecord(); // метод оповещения посредника
 ```
 
 ### Хранитель/Снимок
-*[Momento](https://github.com/vovancho/design-patterns/blob/master/Behavioral/Momento.php)*
+*[Momento](Behavioral/Momento.php)*
 
-![Momento](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Momento.png)
+![Momento](diagrams/B_Momento.png)
 
 ```php
 $day1_AmbKarta = new AmbKarta();
@@ -204,9 +204,9 @@ echo $day2_AmbKarta->getContent();
 ```
 
 ### Наблюдатель
-*[Observer](https://github.com/vovancho/design-patterns/blob/master/Behavioral/Observer.php)*
+*[Observer](Behavioral/Observer.php)*
 
-![Observer](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Observer.png)
+![Observer](diagrams/B_Observer.png)
 
 ```php
 $patientObserver1 = new PatientObserver('Иванов Иван Иванович');
@@ -235,9 +235,9 @@ $smsObservableSubject->notify();
 ```
 
 ### Состояние
-*[State](https://github.com/vovancho/design-patterns/blob/master/Behavioral/State.php)*
+*[State](Behavioral/State.php)*
 
-![State](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_State.png)
+![State](diagrams/B_State.png)
 
 ```php
 $patient1 = new Patient();
@@ -266,9 +266,9 @@ echo '2. Состояние пациента 2: ' . $patient2->getStatus() . PHP
 ```
 
 ### Стратегия
-*[Strategy](https://github.com/vovancho/design-patterns/blob/master/Behavioral/Strategy.php)*
+*[Strategy](Behavioral/Strategy.php)*
 
-![Strategy](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Strategy.png)
+![Strategy](diagrams/B_Strategy.png)
 
 ```php
 $outputAmbKarta = new AmbKartaStrategy();
@@ -294,9 +294,9 @@ echo "Стационарная карта пациента: $fio" . PHP_EOL;
 ```
 
 ### Шаблонный метод
-*[TemplateMethod](https://github.com/vovancho/design-patterns/blob/master/Behavioral/TemplateMethod.php)*
+*[TemplateMethod](Behavioral/TemplateMethod.php)*
 
-![TemplateMethod](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_TemplateMethod.png)
+![TemplateMethod](diagrams/B_TemplateMethod.png)
 
 ```php
 $patient = new Patient('Иванов Иван Иванович');
@@ -312,9 +312,9 @@ $patient->perform();
 ```
 
 ### Посетитель
-*[Visitor](https://github.com/vovancho/design-patterns/blob/master/Behavioral/Visitor.php)*
+*[Visitor](Behavioral/Visitor.php)*
 
-![Visitor](https://github.com/vovancho/design-patterns/blob/master/diagrams/B_Visitor.png)
+![Visitor](diagrams/B_Visitor.png)
 
 ```php
 $nevrolog = new Nevrolog();
@@ -340,9 +340,9 @@ $kardiolog->accept($patientComplaints);
 ## Порождающие *[(Creational)](https://github.com/vovancho/design-patterns/tree/master/Creational)*
 
 ### Абстрактная фабрика
-*[AbstractFactory](https://github.com/vovancho/design-patterns/blob/master/Creational/AbstractFactory.php)*
+*[AbstractFactory](Creational/AbstractFactory.php)*
 
-![AbstractFactory](https://github.com/vovancho/design-patterns/blob/master/diagrams/C_AbstractFactory.png)
+![AbstractFactory](diagrams/C_AbstractFactory.png)
 
 ```php
 $factoryNevrolog = new NevrologFactory();
@@ -368,9 +368,9 @@ echo $zakluchenie2->result();
 ```
 
 ### Строитель
-*[Builder](https://github.com/vovancho/design-patterns/blob/master/Creational/Builder.php)*
+*[Builder](Creational/Builder.php)*
 
-![Builder](https://github.com/vovancho/design-patterns/blob/master/diagrams/C_Builder.png)
+![Builder](diagrams/C_Builder.png)
 
 ```php
 $obsledovanie1 = new Obsledovanie();
@@ -392,9 +392,9 @@ echo $zaklucheniePatient2->result();
 ```
 
 ### Фабричный метод
-*[FactoryMethod](https://github.com/vovancho/design-patterns/blob/master/Creational/FactoryMethod.php)*
+*[FactoryMethod](Creational/FactoryMethod.php)*
 
-![FactoryMethod](https://github.com/vovancho/design-patterns/blob/master/diagrams/C_FactoryMethod.png)
+![FactoryMethod](diagrams/C_FactoryMethod.png)
 
 ```php
 $obsledovanieNevrolog = new NevrologFactory();
@@ -416,9 +416,9 @@ echo $zakluchenieKardiolog->result();
 ```
 
 ### Прототип
-*[Prototype](https://github.com/vovancho/design-patterns/blob/master/Creational/Prototype.php)*
+*[Prototype](Creational/Prototype.php)*
 
-![Prototype](https://github.com/vovancho/design-patterns/blob/master/diagrams/C_Prototype.png)
+![Prototype](diagrams/C_Prototype.png)
 
 ```php
 $ambKartaFactory = new AmbKartaFactory(
@@ -449,9 +449,9 @@ echo $prototypeVrach->getDescription();
 ```
 
 ### Синглтон
-*[Singleton](https://github.com/vovancho/design-patterns/blob/master/Creational/Singleton.php)*
+*[Singleton](Creational/Singleton.php)*
 
-![Singleton](https://github.com/vovancho/design-patterns/blob/master/diagrams/C_Singleton.png)
+![Singleton](diagrams/C_Singleton.png)
 
 ```php
 echo Poliklinika::getInstance()->name();
@@ -466,9 +466,9 @@ echo Poliklinika::getInstance()->name();
 ## Структурные *[(Structural)](https://github.com/vovancho/design-patterns/tree/master/Structural)*
 
 ### Адаптер
-*[Adapter](https://github.com/vovancho/design-patterns/blob/master/Structural/Adapter.php)*
+*[Adapter](Structural/Adapter.php)*
 
-![Adapter](https://github.com/vovancho/design-patterns/blob/master/diagrams/S_Adapter.png)
+![Adapter](diagrams/S_Adapter.png)
 
 ```php
 $stacionarKarta = new StacionarKarta('Иванов Иван Иванович');
@@ -491,9 +491,9 @@ echo $ambKartaToStacionarKarta->getPatient()->getFIO() . PHP_EOL;
 ```
 
 ### Мост
-*[Bridge](https://github.com/vovancho/design-patterns/blob/master/Structural/Bridge.php)*
+*[Bridge](Structural/Bridge.php)*
 
-![Bridge](https://github.com/vovancho/design-patterns/blob/master/diagrams/S_Bridge.png)
+![Bridge](diagrams/S_Bridge.png)
 
 ```php
 $outputAmbKarta = new AmbKartaOutput();
@@ -517,9 +517,9 @@ echo "Стационарная карта пациента: $fio" . PHP_EOL;
 ```
 
 ### Компоновщик
-*[Composite](https://github.com/vovancho/design-patterns/blob/master/Structural/Composite.php)*
+*[Composite](Structural/Composite.php)*
 
-![Composite](https://github.com/vovancho/design-patterns/blob/master/diagrams/S_Composite.png)
+![Composite](diagrams/S_Composite.png)
 
 ```php
 $patientAmbKarta1 = new AmbKarta('Иванов Иван Иванович');
@@ -551,9 +551,9 @@ $report->render();
 ```
 
 ### Декоратор
-*[Decorator](https://github.com/vovancho/design-patterns/blob/master/Structural/Decorator.php)*
+*[Decorator](Structural/Decorator.php)*
 
-![Decorator](https://github.com/vovancho/design-patterns/blob/master/diagrams/S_Decorator.png)
+![Decorator](diagrams/S_Decorator.png)
 
 ```php
 echo "-----Амбулаторная карта-----" . PHP_EOL;
@@ -583,9 +583,9 @@ echo "----------------------------" . PHP_EOL;
 ```
 
 ### Фасад
-*[Facade](https://github.com/vovancho/design-patterns/blob/master/Structural/Facade.php)*
+*[Facade](Structural/Facade.php)*
 
-![Facade](https://github.com/vovancho/design-patterns/blob/master/diagrams/S_Facade.png)
+![Facade](diagrams/S_Facade.png)
 
 ```php
 $ambKarta = new AmbKartaFacade(new Patient(), new Karta());
@@ -602,9 +602,9 @@ echo $ambKarta->getData();
 ```
 
 ### Приспособленец/Легковес
-*[FlyWeight](https://github.com/vovancho/design-patterns/blob/master/Structural/FlyWeight.php)*
+*[FlyWeight](Structural/FlyWeight.php)*
 
-![FlyWeight](https://github.com/vovancho/design-patterns/blob/master/diagrams/S_FlyWeight.png)
+![FlyWeight](diagrams/S_FlyWeight.png)
 
 ```php
 $patientsFactory = new Patients();
@@ -646,9 +646,9 @@ foreach ($patients as $patientFIO) { // Пациенты кэшируются (�
 ```
 
 ### Заместитель
-*[Proxy](https://github.com/vovancho/design-patterns/blob/master/Structural/Proxy.php)*
+*[Proxy](Structural/Proxy.php)*
 
-![Proxy](https://github.com/vovancho/design-patterns/blob/master/diagrams/S_Proxy.png)
+![Proxy](diagrams/S_Proxy.png)
 
 ```php
 $obsledovaniePriemProxy = new ObsledovaniePriemProxy();
